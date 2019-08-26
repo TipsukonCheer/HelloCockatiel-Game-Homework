@@ -32,13 +32,13 @@ class GameScene extends Phaser.Scene {
         this.add.image(x,y,'bg')
         
         platforms = this.physics.add.staticGroup()
-        platforms.create(x,y,'ground')
+        platforms.create(x,y*2,'ground')
         platforms.create(300,300,'path')
         checkpoint = this.physics.add.sprite(400,330,'check').setScale(0.2).setImmovable()
         player =  this.physics.add.sprite(100,475,'ch').setScale(0.3)
         player.setCollideWorldBounds(true)
         checkpoint.setCollideWorldBounds(true)
-        //this.physics.add.collider(player,platforms)
+        this.physics.add.collider(player,platforms)
         this.physics.add.collider(player,checkpoint)
         cursor = this.input.keyboard.createCursorKeys()
 
@@ -78,7 +78,7 @@ class GameScene extends Phaser.Scene {
             player.setVelocityX(330)
             player.anims.play('right',true)
         }else if(cursor.up.isDown&&player.body.touching.down){
-            player.setVelocityY(-330)
+            player.setVelocityY(-500)
         }else if(cursor.down.isDown){
             player.setVelocityY(330)
         }else{
