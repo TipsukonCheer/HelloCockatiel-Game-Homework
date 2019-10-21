@@ -6,7 +6,7 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-
+        this.load.spritesheet('ch','src/image/character.png',{frameWidth:416,frameHeight:454})
     }
 
     create() {
@@ -14,7 +14,7 @@ class GameScene extends Phaser.Scene {
     }
 
     update() {
-                    
+   
     }
 }
 
