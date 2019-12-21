@@ -1,4 +1,3 @@
-[]
 let phasers;
 let player;
 let keyA;
