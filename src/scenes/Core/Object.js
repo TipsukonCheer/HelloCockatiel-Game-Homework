@@ -1,4 +1,4 @@
-let ground_1, ground_2, groundS_1, groundS_2, bg, player
+let ground_1
 let coin
 let phasers;
 import 'phaser';
@@ -20,7 +20,7 @@ class GameScene extends Phaser.Scene {
     create() {
         coin = phasers.add.image(100,400,'coin').setOrigin(0, 0).setScale(1)
         ground_1 = phasers.add.image(-60, 500, 'ground_1').setOrigin(0, 0).setScale(2)
-        phasers.physics.add.collider(player, ground_1)
+        // phasers.physics.add.collider(player, ground_1)
         // coins = phasers.physics.add.group();
 
         // event = phasers.time.addEvent({
