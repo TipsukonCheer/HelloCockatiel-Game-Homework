@@ -1,3 +1,5 @@
+import Score from './core/Score'
+let score;
 class GameScene extends Phaser.Scene {
     constructor(test) {
         super({
@@ -10,11 +12,12 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-
+        score = new Score({ scene: this})
+        score.create();
     }
 
     update() {
-   
+        score.update();
     }
 }
 
