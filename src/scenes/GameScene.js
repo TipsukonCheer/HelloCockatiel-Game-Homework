@@ -1,13 +1,14 @@
 import BG from './Core/bg'
 import Player from './Core/Player'
 import Object from './Core/Object'
+import {coins} from './Core/Object'
 import Score from './core/Score'
  import Monster from './Core/Monster' 
 let bg;
 let player;
 let ground_1;
 let object
-let coin;
+// let coin,coins;
 let score;
 let monster;
 let sth;
@@ -35,16 +36,32 @@ class GameScene extends Phaser.Scene {
         score.create();
         monster = new Monster({ scene : this});
         monster.create();
+
+        player.canCollect(coins, (player, coin) => {
+            coin.destroy();
+            score.addScore(1000);
+            //console.log("coin collected");
+
+        });
+        // this.physics.add.collider(player, coins, this.collectCoin )
+        
+    }
+
+    collectCoin(player,coin){
+        coin.destroy();
     }
 
     update() {
         bg.update();
-       player.update();
+        player.update();
         score.update();
         if(sth){
             monster.hit(player)
         }
     }
+
+   
+
 }
 
 export default GameScene;

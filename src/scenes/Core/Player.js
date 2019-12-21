@@ -55,6 +55,11 @@ class GameScene extends Phaser.Scene {
             player.setVelocityY(-330);
         }
     }
+
+    canCollect(object, collectObject){
+        phasers.physics.add.collider(player, object, collectObject)
+    }
+
 }
 
 export default GameScene;

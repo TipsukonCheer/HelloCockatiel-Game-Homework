@@ -1,5 +1,5 @@
 let phasers;
-var score = 0;
+export var score = 0;
 var scoreText;
 import 'phaser';
 
@@ -21,6 +21,11 @@ class GameScene extends Phaser.Scene {
         scoreText = phasers.add.text(20, 20, 'score: 0', { fontSize: '15px', fill: '#ffffff' });
 
 
+
+    }
+    
+    addScore(addedScore){
+        score+=addedScore;
     }
 
     update() {

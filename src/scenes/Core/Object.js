@@ -1,6 +1,6 @@
 let ground_1
-let coin
 let phasers;
+export let coin, coins
 import 'phaser';
 class GameScene extends Phaser.Scene {
     constructor(config) {
@@ -18,31 +18,32 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        coin = phasers.add.image(100,400,'coin').setOrigin(0, 0).setScale(1)
+      //coin = phasers.add.image(100,400,'coin').setOrigin(0, 0).setScale(1)
         ground_1 = phasers.add.image(-60, 500, 'ground_1').setOrigin(0, 0).setScale(2)
         // phasers.physics.add.collider(player, ground_1)
-        // coins = phasers.physics.add.group();
+        coins = phasers.physics.add.group();
 
-        // event = phasers.time.addEvent({
-        //     delay: 1000,
-        //     callback: function () {
-        //         coin = phasers.physics.add.sprite(Phaser.Math.Between(0, 600), 0, 'coin').setScale(2).setSize(15, 15).setOffset(0, 3)
-        //         coins.add(coin)
-        //         coins.setVelocityY(200)
-
-        //     },
-        //     callbackScope: this,
-        //     loop: true,
-        //     paused: false,
-        //     startAt: 1000,
-        //     timeScale: 1
-        // })
+        event = phasers.time.addEvent({
+            delay : 1000,
+            callback : function (){
+                coin = phasers.physics.add.image(Phaser.Math.Between(0,600),0,'coin').setScale(0.7)
+                coins.add(coin)
+                coins.setVelocityY(300)
+            },
+            callbackScope : this,
+            loop  : true,
+            pause : false,
+            timeScale:1,
+            startAt:1000,
+           
+        })
     }
-
-
 
     update() {
 
     }
+
+  
 }
+
 export default GameScene;
