@@ -1,6 +1,7 @@
 let phasers;
 let monster;
 let monsterGroup;
+let player;
 
 import 'phaser';
 
@@ -31,12 +32,17 @@ class GameScene extends Phaser.Scene {
             pause : false,
             timeScale:1,
             startAt:1000,
-            repeat : 10,
+           
         })
-     
-        
 
+        
+        
     }
+
+    hit(player){
+            monster.destroy()
+    }
+   
 
     update() {
     

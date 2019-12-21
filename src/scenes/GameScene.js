@@ -1,5 +1,7 @@
  import Monster from './Core/Monster' 
 let monster
+let sth
+
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -19,7 +21,9 @@ class GameScene extends Phaser.Scene {
     }
 
     update() {
-   
+        if(sth){
+            monster.hit(player)
+        }
     }
 }
 
