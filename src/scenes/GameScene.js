@@ -1,16 +1,8 @@
-import BG from './Core/bg'
 import Player from './Core/Player'
-import Object from './Core/Object'
-import Score from './core/Score'
- import Monster from './Core/Monster' 
-let bg;
+import Monster from './Core/Monster' 
 let player;
-let ground_1;
-let object
-let coin;
-let score;
 let monster;
-let sth;
+let playerAni;
 class GameScene extends Phaser.Scene {
     constructor(config) {
         super({
@@ -21,29 +13,47 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.spritesheet('player', './src/image/character.png', { frameWidth: 416, frameHeight: 454 })
         this.load.image('Monster','src/image/flyMan_stand.png' , {frameWidth :122 , frameHeight:139}) 
-        bg = new BG({scene: this});
-        bg.preload();
-        object = new Object({scene: this});
-        object.preload();
+        
     }
     create() {
-        bg.create();
-        player = new Player({ scene: this});
-        player.create();
-       object.create();
-        score = new Score({ scene: this})
-        score.create();
-        monster = new Monster({ scene : this});
-        monster.create();
+        
+
+        player = new Player(this,
+            200,
+            300,
+            "player"
+            
+          );
+          player.setWorldBounds();
+          player.setGravity();
+
+          console.log(player);
+          this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+          this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+          this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+          this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+           player.createAnimationPlayer();
+           player.setSize(0.1)
+           player.createTimeEventPlayer()
     }
 
     update() {
-        bg.update();
-       player.update();
-        score.update();
-        if(sth){
-            monster.hit(player)
-        }
+        player.play("playerAni",true);
+        if (this.keyW.isDown) {
+            player.moveUp();
+          }
+          else if (this.keyS.isDown) {
+            player.moveDown();
+          }
+          else if (this.keyA.isDown) {
+            player.moveLeft();
+          }
+          else if (this.keyD.isDown) {
+            player.moveRight();
+          }else{
+            player.body.velocity.x = 0;
+            player.body.velocity.y = 0;
+          }
     }
 }
 

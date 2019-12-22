@@ -1,60 +1,67 @@
-let phasers;
-let player;
-let keyA;
-let keyD;
-let keyW;
-import 'phaser';
 
-class GameScene extends Phaser.Scene {
+import 'Phaser';
+export default class Player extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, key) {
+      super(scene, x, y, key);
+    this.key = key;
+      this.scene = scene;
+      this.scene.add.existing(this);
+      this.scene.physics.world.enableBody(this, 0);
 
-    constructor(config) {
-        super(config.scene)
-        this.scene = config.scene;
-        this.scene.add.existing(this);
-        phasers = config.scene
-
+      this.setData("speed", 200);
+      
 
     }
 
-    preload() {
-    }
+      moveUp() {
+        this.body.velocity.y = -this.getData("speed");
+      }
+      moveDown() {
+        this.body.velocity.y = this.getData("speed");
+      }
+      moveLeft() {
+        this.body.velocity.x = -this.getData("speed");
+      }
+      moveRight() {
+        this.body.velocity.x = this.getData("speed");
+      }
 
-    create() {
-        keyA = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        keyD = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        keyW = phasers.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        player = phasers.physics.add.sprite(200, 100, 'player').setScale(0.25);
-        player.setCollideWorldBounds(true);
-        phasers.anims.create({
+    setWorldBounds(){
+        this.body.setCollideWorldBounds(true)
+    }
+    setGravity(){
+        this.body.setGravity(0,1000)
+    }
+    
+    createAnimationPlayer(){
+        this.scene.anims.create({
             key: 'playerAni',
-            frames: phasers.anims.generateFrameNumbers('player', {
+            frames: this.scene.anims.generateFrameNumbers(this.key,{
                 start: 0,
                 end: 3
             }),
-            framerate: 2,
+            frameRate: 400,
             repeat: -1
+          });
+    }
+
+    setSize(size){
+        this.setScale(size)
+    }
+
+    createTimeEventPlayer(){
+        this.scene.time.addEvent({
+            delay : 1000,
+            callback : function (){
+            console.log('testPlayerEvent');
+            },
+            callbackScope :this,
+            loop : true,
+            pause : false,
+            timeScale:1,
         })
-
+    }
 
     }
 
-    update() {
-        if (keyA.isDown) {
-            player.setVelocityX(-160);
 
-        }
-        else if (keyD.isDown) {
-            player.setVelocityX(160);
-            player.anims.play('playerAni', true);
-        }
-        else {
-            player.setVelocityX(0);
-            player.anims.play('playerAni', false);
-        }
-        if (keyW.isDown && player.body.touching.down) {
-            player.setVelocityY(-330);
-        }
-    }
-}
-
-export default GameScene;
