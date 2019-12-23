@@ -1,6 +1,8 @@
 
 import 'Phaser';
-export default class Player extends Phaser.GameObjects.Sprite {
+import ObjectWipcamp from './ObjectWipCamp';
+
+export default class Player extends ObjectWipcamp{
     constructor(scene, x, y, key) {
       super(scene, x, y, key);
     this.key = key;
@@ -26,12 +28,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.velocity.x = this.getData("speed");
       }
 
-    setWorldBounds(){
-        this.body.setCollideWorldBounds(true)
-    }
-    setGravity(){
-        this.body.setGravity(0,1000)
-    }
+    
     
     createAnimationPlayer(){
         this.scene.anims.create({
