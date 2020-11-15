@@ -1,4 +1,7 @@
 import 'phaser';
+import Phaser from 'phaser';
+import GameOver from './scenes/GameOver';
+import MainMenu from './scenes/MainMenu';
 import GameScene from './scenes/GameScene';
 
 const config = {
@@ -7,18 +10,23 @@ const config = {
     pixelArt: true,
     roundPixels: true,
     parent: 'content',
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
     physics: {
         default: 'arcade',
         arcade: {
             debug: false,
-            gravity: {y:300}
+            // gravity: {y:300}
         }
     },
     scene: [
-        GameScene
-    ]
+        // MainMenu,
+        GameScene,
+        GameOver,
+        
+    ],
+    
+    
 };
 
 const game = new Phaser.Game(config);
