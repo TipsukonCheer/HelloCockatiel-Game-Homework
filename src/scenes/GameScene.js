@@ -27,6 +27,7 @@ let score = 0;
 
 //Overlap
 let sharkOverlaptest = false;
+let bombOverlaptest = false;
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -40,10 +41,10 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('player','src/image/Mermaid.png',
         { frameWidth: 528 , frameHeight: 458});
         this.load.spritesheet('shark','src/image/shark.png',
-        {frameWidth: 546 , frameHeight: 284});
+        {frameWidth: 580 , frameHeight: 284});
         this.load.image('sky','src/image/Skybg.png');
         this.load.image('trident','src/image/trident-shoot.png');
-        this.load.spritesheet('bomb', 'src/image/bomb.png',{frameWidth: 160, frameHeight: 230});
+        this.load.spritesheet('bomb', 'src/image/bomb.png',{frameWidth: 404.8, frameHeight: 582});
     }
 
     create() {
@@ -61,26 +62,26 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(p1, skybox);
 
         //Player Animetion
-        this.anims.create({
-            key: 'playerAni',
-            frames: this.anims.generateFrameNumbers('player', {
-                start: 0,
-                end: 3
-            }),
-            framerate: 1,
-            repeat: -1
-        })
+        // this.anims.create({
+        //     key: 'playerAni',
+        //     frames: this.anims.generateFrameNumbers('player', {
+        //         start: 0,
+        //         end: 3
+        //     }),
+        //     framerate: 1,
+        //     repeat: -1
+        // })
 
         //Shark Animation
-        this.anims.create({
-            key: 'sharkAni',
-            frames: this.anims.generateFrameNumbers('shark', {
-                start: 0,
-                end: 2
-            }),
-            framerate: 1,
-            repeat: -1
-        })
+        // this.anims.create({
+        //     key: 'sharkAni',
+        //     frames: this.anims.generateFrameNumbers('shark', {
+        //         start: 0,
+        //         end: 2
+        //     }),
+        //     framerate: 1,
+        //     repeat: -1
+        // })
 
         //Bomb Animation
         this.anims.create({
@@ -108,7 +109,7 @@ class GameScene extends Phaser.Scene {
                 shark = this.physics.add.sprite(1280, Phaser.Math.Between(220 , 
                     700), 'shark').setScale(0.35);
                 shark.anims.play('sharkAni', true);
-                shark.setVelocityX((Math.floor(Math.random() * -800))-500);
+                shark.setVelocityX((Math.floor(Math.random() * -600))-300);
                 // shark.setVelocityX(sharkSpeed);
                 this.physics.add.overlap(bulletGroup, shark, sharkDestroy);
                 this.physics.add.overlap(p1, shark,gameOver);
@@ -120,17 +121,15 @@ class GameScene extends Phaser.Scene {
         })
         
         event_bomb = this.time.addEvent({
-            delay: Phaser.Math.Between(200, 500),
+            delay: Phaser.Math.Between(1000, 3000),
             callback: function () {
                 bomb = this.physics.add.sprite(1280, 
                     Phaser.Math.Between(220 , 700), 'bomb')
-                    .setScale(0.5);
+                    .setScale(0.5)
+                    .setSize(160, 160)
+                    .setOffset(170, 180);
                 bomb.anims.play('BombAni', true);
-                bomb.setVelocityX(-500);
-                // shark.setVelocityX(sharkSpeed);
-                // this.physics.add.overlap(bulletGroup, shark, sharkDestroy);
-                // this.physics.add.overlap(p1, shark,gameOver);
-                
+                bomb.setVelocityX(-200);
             },
             callbackScope: this,
             loop: true,
@@ -143,6 +142,7 @@ class GameScene extends Phaser.Scene {
         //Other function
         function gameOver(){
             sharkOverlaptest = true;
+            bombOverlaptest = true;
         }
 
         function sharkDestroy(bulletGroup, shark){
@@ -160,11 +160,11 @@ class GameScene extends Phaser.Scene {
     update(delta, time) {
         scoreText.setText('Score: ' + score);
         background.tilePositionX += 1.65;
-        if(sharkOverlaptest == true){
+        if(sharkOverlaptest == true && bombOverlaptest == true){
             this.scene.start('GameOver');
         }
         //Animation
-        p1.anims.play('playerAni', true);
+        p1.anims.play('mermaidAni', true);
         
         //Input from keyboard
         if(keyUP.isDown){
@@ -200,6 +200,7 @@ class GameScene extends Phaser.Scene {
             }      
         }
         
+        //Speed up when time increse
         // sharkSpeed = Phaser.Math.GetSpeed(-300,1)*delta;
         
 

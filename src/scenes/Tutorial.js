@@ -1,22 +1,22 @@
 import Phaser from "phaser";
-let gameOverbg;
+let how;
 
 //Input from keyboard
 let keyENTER;
 
-class GameOver extends Phaser.Scene {
+class Tutorial extends Phaser.Scene {
     constructor(test) {
         super({
-            key: 'GameOver'
+            key: 'Tutorial'
         });
     }
 
     preload() {
-        this.load.image('gameover','src/image/game-over2.png');
+        this.load.image('how','src/image/how.png');
     }
 
     create() {
-        gameOverbg = this.add.image(0, 0,'gameover').setOrigin(0,0);
+        how = this.add.image(0, 0,'how').setOrigin(0,0).setScale(0.24);
         
         //Input enter
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
@@ -30,4 +30,4 @@ class GameOver extends Phaser.Scene {
     }
 }
 
-export default GameOver;
+export default Tutorial;
