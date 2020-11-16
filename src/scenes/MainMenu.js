@@ -11,7 +11,9 @@ let seaweed1;
 let seaweed2;
 let seaweed3;
 let seaweed4;
-let name;
+
+//Sound
+let menusound;
 class MainMenu extends Phaser.Scene {
     constructor(test) {
         super({
@@ -37,19 +39,25 @@ class MainMenu extends Phaser.Scene {
         this.load.spritesheet('seaweed4','src/image/seaweed2.png',
         {frameWidth: 200, frameHeight: 247})
         this.load.image('logo','src/image/main name.png');
+        this.load.audio('menusound','src/sound/MenuBG.mp3')
     }
 
     create() {
+        menusound = this.sound.add('menusound')
+        menusound.loop = true;
+        menusound.play();
         bgmenu = this.add.tileSprite(0, 0, 1600, 720, 'bgmenu').setOrigin(0,0);
         mermaid = this.add.sprite(190, 360, 'mermaid').setScale(0.5);
         shark = this.add.sprite(1100, 340, 'shark').setScale(0.5);
-        tutorial = this.add.image(this.game.renderer.width/2, (this.game.renderer.height/2)+150, 'howtobotton').setScale(0.25);
+        tutorial = this.add.image(this.game.renderer.width/2, (this.game.renderer.height/2)+150, 'howtobotton')
+            .setScale(0.25);
         rock = this.add.image(this.game.renderer.width/4, 700, 'rock').setScale(0.6);
         seaweed1 = this.add.sprite(this.game.renderer.width-300, 660, 'seaweed1').setScale(0.5);
         seaweed2 = this.add.sprite(200, 660, 'seaweed2').setScale(0.5);
         seaweed3 = this.add.sprite(this.game.renderer.width-100, 640, 'seaweed3').setScale(0.7);
         seaweed4 = this.add.sprite(300, 660, 'seaweed4').setScale(0.4);
         name = this.add.image(this.game.renderer.width/2, (this.game.renderer.height/2)-200, 'logo').setScale(0.2);
+
         
         //Animation
         this.anims.create({
@@ -58,6 +66,7 @@ class MainMenu extends Phaser.Scene {
                 start: 0,
                 end: 3
             }),
+            duration: 500,
             framerate: 1,
             repeat: -1
         })
@@ -68,6 +77,7 @@ class MainMenu extends Phaser.Scene {
                 start: 0,
                 end: 2
             }),
+            duration: 600,
             framerate: 1,
             repeat: -1
         })
@@ -78,6 +88,7 @@ class MainMenu extends Phaser.Scene {
                 start: 0,
                 end: 2
             }),
+            duration: 700,
             framerate: 1,
             repeat: -1
         })
@@ -88,6 +99,7 @@ class MainMenu extends Phaser.Scene {
                 start: 0,
                 end: 2
             }),
+            duration: 700,
             framerate: 1,
             repeat: -1
         })
@@ -98,6 +110,7 @@ class MainMenu extends Phaser.Scene {
                 start: 0,
                 end: 2
             }),
+            duration: 700,
             framerate: 1,
             repeat: -1
         })
@@ -108,6 +121,7 @@ class MainMenu extends Phaser.Scene {
                 start: 0,
                 end: 2
             }),
+            duration: 700,
             framerate: 1,
             repeat: -1
         })
@@ -118,15 +132,13 @@ class MainMenu extends Phaser.Scene {
             .setScale(0.2);
         startbutton.setInteractive();    
         startbutton.on('pointerup', () => {
-            // Sound.stop();
-            // waterSound.stop();
+            menusound.stop()
             this.scene.start('GameScene');
         });
 
         tutorial.setInteractive();
         tutorial.on('pointerup', () => {
-            // Sound.stop();
-            // waterSound.stop();
+            menusound.stop()
             this.scene.start('Tutorial');
         });
     }

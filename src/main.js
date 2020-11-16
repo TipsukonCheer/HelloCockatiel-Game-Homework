@@ -24,7 +24,7 @@ const config = {
         MainMenu,
         Tutorial,
         GameScene,
-        GameOver,
+        GameOver
         
     ],
     
